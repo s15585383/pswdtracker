@@ -45,6 +45,8 @@ router.get('/profile', withAuth, async (req, res) => {
     res.render('profile', {
       ...user,
       logged_in: true,
+      name: req.session.username,
+      email: req.session.email,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -54,11 +56,25 @@ router.get('/profile', withAuth, async (req, res) => {
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
-    res.redirect('/profile');
+    res.redirect('/profile', {
+      name: req.session.username,
+      email: req.session.email,
+    });
     return;
   }
 
   res.render('login');
 });
+router.get('/signup', (req, res) => {
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/profile', {
+      name: req.session.username,
+      email: req.session.email,
+    });
+    return;
+  }
 
+  res.render('register');
+});
 module.exports = router;
