@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS PasswordTracker;
+CREATE DATABASE PasswordTracker;
