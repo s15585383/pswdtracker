@@ -41,7 +41,7 @@ router.get('/profile', withAuth, async (req, res) => {
     });
 
     const user = userData.get({ plain: true });
-
+    console.log('PROFILE', user);
     res.render('profile', {
       ...user,
       logged_in: true,
@@ -49,6 +49,7 @@ router.get('/profile', withAuth, async (req, res) => {
       email: req.session.email,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });

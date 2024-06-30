@@ -15,6 +15,7 @@ const newFormHandler = async (event) => {
     });
 
     if (response.ok) {
+      //   document.reload();
       document.location.replace('/profile');
     } else {
       alert('Failed to create password');
