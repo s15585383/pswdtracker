@@ -1,10 +1,23 @@
-const Sequelize = require('sequelize');
 require('dotenv').config();
+const express = require('express');
+const { Sequelize } = require('sequelize');
+
+const app = express();
+// const port = process.env.PORT || 3000;
 
 let sequelize;
 
 if (process.env.DB_URL) {
-  sequelize = new Sequelize(process.env.DB_URL);
+  sequelize = new Sequelize(process.env.DB_URL, {
+    dialect: 'postgres',
+    logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
+  });
 } else {
   sequelize = new Sequelize(
     process.env.DB_NAME,
@@ -18,21 +31,21 @@ if (process.env.DB_URL) {
   );
 }
 
-sequelize
-  .sync()
-  .then(() => {
-    console.log('Database connected');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// sequelize
+//   .sync()
+//   .then(() => {
+//     console.log('Database connected');
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World');
+// });
 
-app.listen(port, () => {
-  console.log(`listening at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`listening at http://localhost:${port}`);
+// });
 
 module.exports = sequelize;
