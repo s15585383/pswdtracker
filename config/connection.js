@@ -18,4 +18,21 @@ if (process.env.DB_URL) {
   );
 }
 
+sequelize
+  .sync()
+  .then(() => {
+    console.log('Database connected');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
+
+app.listen(port, () => {
+  console.log(`listening at http://localhost:${port}`);
+});
+
 module.exports = sequelize;
