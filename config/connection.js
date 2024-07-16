@@ -3,11 +3,12 @@ const express = require('express');
 const { Sequelize } = require('sequelize');
 
 const app = express();
-// const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
 let sequelize;
 
 if (process.env.DB_URL) {
+  console.log(process.env.DB_URL);
   sequelize = new Sequelize(process.env.DB_URL, {
     dialect: 'postgres',
     logging: false,
